@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const FAKE_STORE = import.meta.env.VITE_FAKE_STORE;
+const FAKE_STORE = import.meta.env.VITE_FAKE_STORE|| "https://mongo-nnwt.onrender.com/api/v1/employee/";
 // const apiKey = import.meta.env.VITE_COINGECKO_API_KEY;
 
 
