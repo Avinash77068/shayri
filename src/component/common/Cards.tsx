@@ -17,7 +17,7 @@ export default function Cards() {
   const isOpened = useSelector((state: any) => state.states.isOpenDropDown);
   const Alldata = useSelector((state: any) => state.secondStates.AllData);
   const dispatch = useDispatch();
-
+console.log(isOpened)
   const [loading, setLoading] = useState(true); // Loader state
 
   const getAllData = async () => {

@@ -18,8 +18,8 @@ export default function NavBar() {
  }
 
   return (
-    <nav className="fixed border-b border-solid border-prime-gray-200 w-full py-3 bg-blue-400 z-10 bg-white" >
-      <div className="container mx-auto w-full px-[3.81%] sm:px-[0px] ">
+    <nav className="fixed border-b border-solid border-prime-gray-200 bg-blue-400 w-full py-3 z-10" >
+      <div className="container mx-auto w-full px-[3.81%] sm:px-[0px] bg-blue-400 ">
         <div className="w-full flex  flex-col lg:flex-row">
           <div className=" flex justify-between  lg:flex-row">
             <span className="flex items-center">
