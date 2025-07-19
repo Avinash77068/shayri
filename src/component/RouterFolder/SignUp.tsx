@@ -14,7 +14,7 @@ export default function SignUp() {
     category: "",
     bioMessage: "",
   });
-  const isOpened = useSelector((state: any) => state.states.isOpenDropDown);
+  // const isOpened = useSelector((state: any) => state.states.isOpenDropDown);
   const [errors, setErrors] = useState<SignUpErrors>({});
   const loader = useSelector((state: any) => state.thirdState.loader);
   const dispatch = useDispatch();
