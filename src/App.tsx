@@ -13,10 +13,13 @@ export default function App() {
     <div>
       <NavBar />
       {
-        isOpened && <Sidebar />
+        !isOpened && <Sidebar />
       }
       {/* <Cards/> */}
-      <Outlet />
+  <div
+  >
+        <Outlet />
+  </div>
       <div className='f
       ixed bg-white bottom-0  items-center flex w-full border-t border-solid border-prime-gray-200   '>
         <Footer />

@@ -35,3 +35,9 @@
 .star:nth-child(5) {
   animation-delay: 1.2s;
 }
+
+body, html {
+  background-color: black !important;
+  color: white;
+  
+}

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../utils/api";
 import { Alluser } from "../../@typeScript/AllUser";
 import { setAllUser } from "../../store/AllUser/AllUser";
-// import { toast } from "react-toastify";
+
 
   
 interface AllUser {
@@ -29,7 +29,7 @@ export default function AllUser() {
     }
   };
 
-  // const notify = () => toast("Wow so easy!");
+  
 
   
   const handleDelete = async (id: string) => {
