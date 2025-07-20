@@ -4,7 +4,7 @@ import userProfile from "../../assets/image/avinash.jpg";
 import { useEffect, useState } from "react";
 import { setAllData } from "../../store/slice/DataSlice";
 import { Link } from "react-router-dom";
-import { FaTrashAlt, FaUserEdit } from "react-icons/fa";
+// import { FaTrashAlt, FaUserEdit } from "react-icons/fa";
 
 type values = {
   _id: string;
