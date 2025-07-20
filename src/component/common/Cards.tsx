@@ -4,9 +4,8 @@ import userProfile from "../../assets/image/avinash.jpg";
 import { useEffect, useState } from "react";
 import { setAllData } from "../../store/slice/DataSlice";
 import { Link } from "react-router-dom";
-import { FaTrash, FaTrashAlt, FaUserEdit } from "react-icons/fa";
-import { FaDeleteLeft } from "react-icons/fa6";
-import { BiTrash } from "react-icons/bi";
+import {  FaTrashAlt, FaUserEdit } from "react-icons/fa";
+
 
 type values = {
   _id: string;
@@ -17,7 +16,6 @@ type values = {
 };
 
 export default function Cards() {
-  const isOpened = useSelector((state: any) => state.states.isOpenDropDown);
   const Alldata = useSelector((state: any) => state.secondStates.AllData);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true); // Loader state

@@ -75,7 +75,7 @@ export default function Sidebar() {
           <h6 className="text-black text-xs font-bold leading-4">MENU</h6>
         </div>
         <ul className="flex-col gap-1 flex">
-          {menuItems.map((item, idx) => (
+          {menuItems.map((item) => (
             <li key={item.label} className="hover:bg-green-100 rounded-lg">
               <Link to={item.to} className="flex p-3 bg-white rounded-lg items-center gap-3">
                 {item.icon}
@@ -91,7 +91,7 @@ export default function Sidebar() {
           <h6 className="text-black text-xs font-bold leading-4">SETTINGS</h6>
         </div>
         <ul className="flex-col gap-1 flex">
-          {settingsItems.map((item, idx) => (
+          {settingsItems.map((item) => (
             <li key={item.label} className={`hover:bg-green-100 rounded-lg ${item.label === 'Logout' ? 'hover:bg-red-200' : ''}`}>
               {item.to ? (
                 <Link to={item.to} onClick={item.onClick ? () => item.onClick(dispatch) : undefined} className="flex p-3 rounded-lg items-center gap-3">
