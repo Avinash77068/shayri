@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { IoIosContacts } from "react-icons/io";
 import { GrServices } from "react-icons/gr";
 import { FaFacebook, FaTwitter } from "react-icons/fa";
