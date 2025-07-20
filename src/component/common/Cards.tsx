@@ -31,16 +31,16 @@ export default function Cards() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    try {
-      const res = await api.delete(`/employee/${id}`);
-      if (res.status === 200) {
-        getAllData();
-      }
-    } catch (err) {
-      console.error("Error deleting data:", err);
-    }
-  };
+  // const handleDelete = async (id: string) => {
+  //   try {
+  //     const res = await api.delete(`/employee/${id}`);
+  //     if (res.status === 200) {
+  //       getAllData();
+  //     }
+  //   } catch (err) {
+  //     console.error("Error deleting data:", err);
+  //   }
+  // };
 
   useEffect(() => {
     getAllData();
