@@ -12,8 +12,8 @@ import PageNot from './component/RouterFolder/PageNot'
 import ProductDetails from './component/RouterFolder/ProductDetails'
 import UploadShayri from './component/RouterFolder/Upload/UploadShayri'
 import AllUser from './component/UserRouter/AllUser'
+import { ToastContainer } from 'react-toastify'
 
-// import "react-toastify/dist/ReactToastify.css"; // ✅ Import toast styles
 
 
 let router = createBrowserRouter([
@@ -37,7 +37,7 @@ let router = createBrowserRouter([
 const root = createRoot(document.getElementById('root')!)
 root.render(
   <>
-    
+    <ToastContainer/>
     <Provider store={store}>
       <RouterProvider router={router}  />
     </Provider>
