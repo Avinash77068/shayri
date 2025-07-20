@@ -49,14 +49,14 @@ export default function AllUser() {
   const isOpened = useSelector((state: any) => state.states.isOpenDropDown);
   return (
     
-    <div className={`p-6 pt-[65px] ${isOpened ? "left-[16rem]" : "left-[.2rem]"} absolute w-full overflow-hidden `}>
+    <div className={`p-6 pt-[65px] ${!isOpened ? "left-[16rem]" : "left-[.2rem]"} absolute w-full overflow-hidden `}>
       <h2 className={`text-2xl font-bold mb-4 flex justify-center items-center `}>
         All Users Table Table
         
       </h2>
       <p className="mb-4">AllUser all Defined here</p>
       <div className={` ${isOpened ? "block" : "flex"}`}>
-        <table className={`w-full  border-separate  `} >
+        <table className={`w-full  border-separate text-black `} >
           <thead>
             <tr className="bg-gray-200">
               <th className="p-2 text-left border-b">UserName</th>

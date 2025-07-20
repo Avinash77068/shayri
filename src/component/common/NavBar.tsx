@@ -9,7 +9,7 @@ export default function NavBar() {
   const [isopen, setIsOpen] = useState(false)
 
   return (
-    <nav className="fixed border-b border-solid border-prime-gray-200 bg-blue-400 w-full p-1 lg:py-3 z-10">
+    <nav className="fixed border-b border-solid border-prime-gray-200 bg-blue-400 w-full p-2 lg:py-3 z-10">
       <div className="px-5 w-full bg-blue-400 ">
         <div className="w-full flex flex-col lg:flex-row">
           <div className="flex justify-between lg:flex-row">
