@@ -13,7 +13,8 @@ import ProductDetails from './component/RouterFolder/ProductDetails'
 import UploadShayri from './component/RouterFolder/Upload/UploadShayri'
 import AllUser from './component/UserRouter/AllUser'
 import { ToastContainer } from 'react-toastify'
-
+import { registerSW } from 'virtual:pwa-register'
+registerSW({ immediate: true })
 
 
 let router = createBrowserRouter([
