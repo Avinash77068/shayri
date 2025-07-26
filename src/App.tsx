@@ -4,7 +4,7 @@ import Footer from './component/common/Footer'
 import NavBar from './component/common/NavBar'
 import Sidebar from './component/common/Sidebar'
 import { Outlet } from 'react-router-dom'
-
+import "./component/Global/global.css"
 
 export default function App() {
   const isOpened = useSelector((state: any) => state.states.isOpenDropDown)

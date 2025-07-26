@@ -1,50 +1,47 @@
 import axios from "axios";
 
+const FAKE_STORE = import.meta.env.VITE_FAKE_STORE || "https://mongo-nnwt.onrender.com/api/v1/";
 
-const FAKE_STORE = import.meta.env.VITE_FAKE_STORE|| "https://mongo-nnwt.onrender.com/api/v1/";
-// const apiKey = import.meta.env.VITE_COINGECKO_API_KEY;
-
-
-// Create an Axios instance
 const api = axios.create({
-  baseURL: `${FAKE_STORE}`,
-  timeout: 10000, // timeout after 10 seconds
+  baseURL: FAKE_STORE,
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
-    // "x-cg-demo-api-key": apiKey,
   },
 });
 
+// Retry logic: simple retry 3 times with delay
+const retryRequest = async (error:any, retries = 3, delay = 1000) => {
+  if (retries <= 0) return Promise.reject(error);
+  await new Promise((res) => setTimeout(res, delay));
+  return api.request(error.config); // Retry the failed request
+};
 
-api.interceptors.request.use(
-  (config) => {
-  
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-
-// Handle the response interceptor for errors
 api.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
+  async (error) => {
     if (error.response) {
-      // Server responded with a status code outside 2xx
-      console.error("API error:", error.response.data);
+      console.error("API Error Response:", error.response.data);
     } else if (error.request) {
-      // Request was made but no response received
-      console.error("No response received:", error.request);
+      console.error("No response from server:", error.request);
     } else {
-      console.error("Error during setup:", error.message);
+      console.error("Request Setup Error:", error.message);
     }
-    return Promise.reject(error);
+
+    // Retry logic on network error or 5xx status
+    const shouldRetry =
+      error.code === "ECONNABORTED" || // timeout
+      !error.response || // no response
+      (error.response.status >= 500 && error.response.status < 600);
+
+    if (shouldRetry) {
+      return retryRequest(error, 2);
+    }
+
+    return Promise.reject(error); // Final fallback if still failing
   }
 );
-
 
 export default api;
