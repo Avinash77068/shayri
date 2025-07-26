@@ -14,7 +14,7 @@ export default function Footer() {
   const contactDescription = "Feel free to reach out to us during working hours.";
 
   return (
-    <footer className="z-10 bg-blue-400 fixed bottom-0 w-full text-white text-base">
+    <footer className="z-50 bg-blue-400 fixed bottom-0 w-full text-white text-base">
       {/* Chevron Toggle on Small Screens */}
       <div className="sm:hidden flex items-center justify-center py-2 text-black font-bold  " onClick={() => setShowContent(!showContent)}>
        

@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './component/RouterFolder/Login/Login'
 import Cards from './component/common/Cards'
-import SignUp from './component/RouterFolder/SignUp'
+import SignUp from './component/RouterFolder/signup/SignUp'
 import PageNot from './component/RouterFolder/PageNot'
 import ProductDetails from './component/RouterFolder/ProductDetails'
 import UploadShayri from './component/RouterFolder/Upload/UploadShayri'
@@ -25,7 +25,7 @@ let router = createBrowserRouter([
 
       { path: "/login", element: <Login /> },
       { path: "/signUp", element: <SignUp /> },
-      { path: '/product', element: <ProductDetails /> },
+      { path: '/product/:id?', element: <ProductDetails /> },
       { path: "/create/:id?", element: <UploadShayri /> },
       { path: "/alluser", element: <AllUser /> },
       { path: "*", element: <PageNot /> },

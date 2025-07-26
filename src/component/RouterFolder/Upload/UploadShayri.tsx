@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../../utils/api";
 import { setLoader } from "../../../store/slice/Loader";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Toaster } from "../../Global/Toaster";
+
 
 export default function UploadShayri() {
   const loader = useSelector((s: any) => s.thirdState.loader);
@@ -29,7 +30,11 @@ export default function UploadShayri() {
     const url = id ? `/employee/${id}` : "/employee/";
     api[method](url, form)
       .then(() => {
-        toast(id ? "Edited Successfully" : "Uploaded Successfully");
+        Toaster({
+  message: id ? "Shayri Updated Successfully" : "Shayri Uploaded Successfully",
+  type: "success"
+});
+
         navigate("/");
       })
       .catch(() => {})
@@ -42,27 +47,54 @@ export default function UploadShayri() {
         <h1 className="text-2xl font-semibold mb-4 text-center text-gray-900 dark:text-gray-200">
           {id ? "Edit Shayri" : "Upload Shayri"}
         </h1>
-        <form onSubmit={handleSubmit}>
-          <div className="mt-6 w-full p-2">
-            <input id="name" name="name" value={form.name} onChange={handleChange} className="peer w-full rounded bg-opacity-40 py-1 px-3 text-base leading-8 font-semibold text-black placeholder-transparent outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-indigo-900 border" placeholder="Name" />
-           
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <input
+              id="name"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              placeholder="Name"
+              className="input"
+            />
           </div>
-          <div className="mt-6 w-full p-2">
-            <input id="title" name="title" value={form.title} onChange={handleChange} className="peer w-full rounded bg-opacity-40 py-1 px-3 text-base leading-8 font-semibold text-black placeholder-transparent outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-indigo-900 border" placeholder="Title" />
-            
+          <div>
+            <input
+              id="title"
+              name="title"
+              value={form.title}
+              onChange={handleChange}
+              placeholder="Title"
+              className="input"
+            />
           </div>
-          <div className="mt-6 w-full p-2">
-            <textarea id="description" name="description" value={form.description} onChange={handleChange} className="peer w-full rounded h-32 bg-opacity-40 py-1 px-3 text-base leading-8 font-semibold text-black placeholder-transparent outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-indigo-900 border" placeholder="Enter Your Shayri"></textarea>
-            
+          <div>
+            <textarea
+              id="description"
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+              placeholder="Enter Your Shayri"
+              className="textarea"
+            ></textarea>
           </div>
           <div className="w-full flex gap-3">
-          
-          <button className="bg-green-500 hover:bg-green-700 text-white w-full font-bold py-2 px-4 rounded dark:bg-green-600" type="submit" disabled={loader}>
-            {loader ? <div className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-red-600 rounded-full dark:text-blue-500"></div> : id ? "Cancle" : "Cancle"}
-          </button>
-          <button className="bg-green-500 hover:bg-green-700 text-white w-full font-bold py-2 px-4 rounded dark:bg-green-600" type="submit" disabled={loader}>
-            {loader ? <div className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-red-600 rounded-full dark:text-blue-500"></div> : id ? "Update" : "Upload"}
-          </button>
+            <button
+              type="button"
+              onClick={() => navigate("/")}
+              className="submit-button"
+            >
+              Cancle
+            </button>
+            <button
+              type="submit"
+              className="submit-button"
+              disabled={loader}
+            >
+              {loader ? (
+                <div className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-white rounded-full"></div>
+              ) : id ? "Update" : "Upload"}
+            </button>
           </div>
         </form>
       </div>

@@ -4,8 +4,9 @@ import userProfile from "../../assets/image/avinash.jpg";
 import { useEffect, useState } from "react";
 import { setAllData } from "../../store/slice/DataSlice";
 import { Link } from "react-router-dom";
-// import { FaTrashAlt, FaUserEdit } from "react-icons/fa";
-
+import Loader from "../Global/Loader"; // <-- Add this import
+// FaTrashAlt  FaUserEdit  FaUserPlus  FaUserMinus  FaUserCircle
+// import { FaTrashAlt, FaUserEdit, FaUserPlus, FaUserMinus, FaUserCircle } from "react-icons/fa";
 type values = {
   _id: string;
   name: string;
@@ -18,7 +19,7 @@ export default function Cards() {
   const Alldata = useSelector((state: any) => state.secondStates.AllData);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true); // Loader state
-  const isOpened = useSelector((state: any) => state.states.isOpened)
+  const isOpened = useSelector((state: any) => state.states.isOpenDropDown)
   const getAllData = async () => {
     setLoading(true);
     try {
@@ -31,33 +32,21 @@ export default function Cards() {
     }
   };
 
-  // const handleDelete = async (id: string) => {
-  //   try {
-  //     const res = await api.delete(`/employee/${id}`);
-  //     if (res.status === 200) {
-  //       getAllData();
-  //     }
-  //   } catch (err) {
-  //     console.error("Error deleting data:", err);
-  //   }
-  // };
-
   useEffect(() => {
     getAllData();
   }, []);
 
+  if (loading) {
+    return <Loader fullscreen size="lg" text="Please wait..." color="green" />;
+  }
+
   return (
-    <div className={`w-full flex justify-center ${!isOpened?"lg:left-[18rem]":"left-[2rem]"}`}>
+    <div className={`w-full flex justify-center`}>
       <div
-        className={` gap-5 px-4 w-full absolute flex flex-col lg:flex-row items-center justify-center lg:justify-start   top-[5rem] pb-12 transition-all duration-500 -z-10 
-         `}
+        className={`gap-5 ${!isOpened ? "lg:left-[16rem]" : "sm:left-[2rem]"} flex-wrap px-4 absolute flex flex-col lg:flex-row items-center justify-center lg:justify-start top-[5rem] pb-12 transition-all duration-500 -z-10`}
       >
-        {loading ? (
-          <div className="flex justify-center items-center h-[60vh] w-full col-span-full">
-            <div className="w-10 h-10 border-4 border-orange-500 border-dashed rounded-full animate-spin"></div>
-          </div>
-        ) : Alldata?.data?.length === 0 ? (
-          <div className="text-center text-gray-600  max-w-[300px] max-w-[300px] text-2xl font-semibold flex items-center justify-center h-[60vh] w-full col-span-full">
+        {Alldata?.data?.length === 0 ? (
+          <div className="text-center text-gray-600   max-w-[300px] text-2xl font-semibold flex items-center justify-center h-[60vh] w-full col-span-full">
             No Data Found
           </div>
         ) : (
@@ -90,7 +79,7 @@ export default function Cards() {
               </p>
               <div className="flex justify-between items-center mt-auto">
                 <Link
-                  to="/product"
+                  to={`/product/${val._id}`}
                   className="rounded-full py-2 px-3 text-xs text-white font-semibold border-pink-500 border-2 bg-orange-500 hover:bg-orange-600 transition"
                 >
                   Read more..
