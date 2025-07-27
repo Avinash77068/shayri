@@ -57,7 +57,7 @@ export default function AllUser() {
           </thead>
           <tbody>
             {allUsers?.data?.map((person: Alluser, index: number) => (
-              <tr key={index} className="border-b hover:bg-orange-100 dark:hover:bg-orange-400">
+              <tr key={index} className="border-b hover:text-black  hover:bg-orange-100 dark:hover:bg-orange-2200">
                 <td className="p-3">{person.username}</td>
                 <td className="p-3">{person.category}</td>
                 <td className="p-3">{person.email}</td>

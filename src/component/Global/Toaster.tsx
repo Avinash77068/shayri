@@ -27,7 +27,7 @@ const isMobile = window.innerWidth < 768;
 
 export function Toaster({
   message,
-  type = 'info',
+  type,
   options = {}
 }: ShowToastParams) {
   const baseOptions: ToastOptions = {
