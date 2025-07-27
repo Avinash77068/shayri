@@ -68,10 +68,10 @@ export default function Cards() {
           </div>
         ) : (
           <div
-            className={`grid gap-3 sm:gap-4 md:gap-6 ${
+            className={`grid gap-2 px-4 sm:px-1 sm:gap-4 md:gap-6 ${
               isOpened
-                ? "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
-                : "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
+                ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
+                : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
             }`}
           >
             {Alldata?.data?.map((val: val) => {
