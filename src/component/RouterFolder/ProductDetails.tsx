@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 export default function ProductDetails() {
   const { id } = useParams(); // ✅ assuming route is like: /product/:id
-  const Alldata = useSelector((state: any) => state.secondStates.AllData);
+  const Alldata = useSelector((state: any) => state.alldata.AllData);
   const product = Alldata?.data?.find((item: any) => item._id === id);
 console.log(product);
   if (!product) {

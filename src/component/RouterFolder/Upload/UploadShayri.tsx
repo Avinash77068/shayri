@@ -11,7 +11,7 @@ export default function UploadShayri() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const allData = useSelector((s: any) => s.secondStates.AllData);
+  const allData = useSelector((s: any) => s.alldata.AllData);
   const [form, setForm] = useState({ name: "", title: "", description: "" });
 
   useEffect(() => {

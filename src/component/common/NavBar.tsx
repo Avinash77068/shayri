@@ -12,6 +12,9 @@ export default function NavBar() {
   const location = useLocation();
   const hideHome = location.pathname === "/";
 
+  const loginUser = useSelector((state: any) => state.loginUser.loginUser); // 👈 Get user
+  const isLoggedIn = !!loginUser; // true if user exists
+
   return (
     <nav className="fixed w-full z-50 bg-blue-400 border-prime-gray-200 p-2 lg:py-3">
       <div className="px-5 flex flex-col lg:flex-row justify-between items-center">
@@ -21,7 +24,9 @@ export default function NavBar() {
             className="flex items-center cursor-pointer"
           >
             <img src={logo} className="w-10 h-10 rounded-full" />
-            <p className="italic font-semibold pl-4">Avinash</p>
+            <p className="italic font-semibold pl-4">
+              {isLoggedIn ? loginUser.name : "Avinash"}
+            </p>
           </span>
           <button
             onClick={() => dispatch(setIsOpenDropDown(!isOpened))}
@@ -32,21 +37,43 @@ export default function NavBar() {
         </div>
 
         <div className="hidden lg:flex items-center gap-8 mt-2 lg:mt-0 text-lg">
-          {["Home", "Login", "Sign Up"]
+          {["Home"]
             .filter((text) => !(text === "Home" && hideHome))
             .map((text, i) => (
               <Link
                 key={i}
-                to={
-                  text === "Home"
-                    ? "/"
-                    : `/${text.toLowerCase().replace(" ", "")}`
-                }
+                to="/"
                 className="text-black font-bold transition-all hover:text-blue-700"
               >
                 {text}
               </Link>
             ))}
+
+          {!isLoggedIn ? (
+            <>
+              <Link
+                to="/login"
+                className="text-black font-bold transition-all hover:text-blue-700"
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="text-black font-bold transition-all hover:text-blue-700"
+              >
+                Sign Up
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/settings"
+                className="text-black font-bold transition-all hover:text-blue-700"
+              >
+                Settings
+              </Link>
+            </>
+          )}
 
           <div className="relative">
             <button
@@ -66,19 +93,33 @@ export default function NavBar() {
             </button>
             {isopen && (
               <ul className="absolute right-0 mt-3 z-20 bg-white rounded-xl shadow-lg py-2">
-                {["Downloads", "Saved Files", "Notifications", "Log Out"].map(
-                  (item, i) => (
-                    <li key={i}>
+                {isLoggedIn ? (
+                  <>
+                    {["Downloads", "Saved Files", "Notifications"].map(
+                      (item, i) => (
+                        <li key={i}>
+                          <Link
+                            to="/hi"
+                            className="block px-6 py-2 font-bold text-black hover:bg-gray-100"
+                          >
+                            {item}
+                          </Link>
+                        </li>
+                      )
+                    )}
+                    <li>
                       <Link
-                        to="/hi"
-                        className={`block px-6 py-2 font-bold hover:bg-gray-100 ${
-                          item === "Log Out" ? "text-red-500" : "text-black"
-                        }`}
+                        to="/logout"
+                        className="block px-6 py-2 font-bold text-red-500 hover:bg-gray-100"
                       >
-                        {item}
+                        Log Out
                       </Link>
                     </li>
-                  )
+                  </>
+                ) : (
+                  <li>
+                    <p className="px-6 py-2 text-gray-500">Login to see more</p>
+                  </li>
                 )}
               </ul>
             )}

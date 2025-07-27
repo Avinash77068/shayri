@@ -10,18 +10,22 @@ import { val } from "../../@typeScript/TypeScriptCollection";
 import Popup from "../Global/Popup";
 
 export default function Cards() {
-  const Alldata = useSelector((state: any) => state.secondStates.AllData);
+  const Alldata = useSelector((state: any) => state.alldata.AllData);
   const isOpened = useSelector((state: any) => state.states.isOpenDropDown);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-
+  const loginUser = useSelector((state: any) => state.loginUser.loginUser);
+  // const allUser=useSelector((state:any)=>state.allUser.AllUser)
+  // console.log(allUser?.data?.map((item:any)=>item._id),"alluser")
+  // console.log(Alldata?.data?.map((i:any)=>i._id),loginUser.auth._id)
   const getAllData = async () => {
     setLoading(true);
     try {
       const res = await api.get("/employee");
-      dispatch(setAllData(res.data));
+      console.log(res?.data);
+      dispatch(setAllData(res?.data));
     } catch (err) {
       console.error("Error fetching data:", err);
     } finally {
@@ -46,8 +50,10 @@ export default function Cards() {
 
   const getColorClass = (title: string) => {
     const lower = title?.toLowerCase();
-    if (lower.includes("love")) return "border-pink-500 bg-pink-100 hover:bg-pink-200";
-    if (lower.includes("sad")) return "border-blue-500 bg-blue-100 hover:bg-blue-200";
+    if (lower.includes("love"))
+      return "border-pink-500 bg-pink-100 hover:bg-pink-200";
+    if (lower.includes("sad"))
+      return "border-blue-500 bg-blue-100 hover:bg-blue-200";
     return "border-gray-300 bg-gray-50 hover:bg-gray-100";
   };
 
@@ -59,7 +65,7 @@ export default function Cards() {
     <div className="w-full flex justify-center">
       <div
         className={`${
-          !isOpened ? "lg:ml-[16rem]" : "ml-0"
+          !isOpened && loginUser ? "lg:ml-[16rem]" : "ml-0"
         } px-2 pt-[5rem] pb-10 w-full max-w-[1600px] transition-all duration-300`}
       >
         {Alldata?.data?.length === 0 ? (
@@ -69,9 +75,9 @@ export default function Cards() {
         ) : (
           <div
             className={`grid gap-2 px-4 sm:px-1 sm:gap-4 md:gap-6 ${
-              isOpened
-                ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
-                : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
+              isOpened && loginUser
+                ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4"
+                : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4"
             }`}
           >
             {Alldata?.data?.map((val: val) => {
@@ -87,28 +93,27 @@ export default function Cards() {
                       alt="profile"
                       className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-green-500"
                     />
-                   {
-                    Alldata?.status &&
-                     <div className="flex gap-3">
-                      <Link
-                        to={`/create/${val._id}`}
-                        title="Edit"
-                        className="text-blue-600 hover:text-blue-800 text-lg"
-                      >
-                        <FaEdit />
-                      </Link>
-                      <button
-                        title="Delete"
-                        className="text-red-600 hover:text-red-800 text-lg"
-                        onClick={() => {
-                          setSelectedId(val._id);
-                          setShowPopup(true);
-                        }}
-                      >
-                        <FaTrashAlt />
-                      </button>
-                    </div>
-                   }
+                    {loginUser?.status && (
+                      <div className="flex gap-3">
+                        <Link
+                          to={`/create/${val._id}`}
+                          title="Edit"
+                          className="text-blue-600 hover:text-blue-800 text-lg"
+                        >
+                          <FaEdit />
+                        </Link>
+                        <button
+                          title="Delete"
+                          className="text-red-600 hover:text-red-800 text-lg"
+                          onClick={() => {
+                            setSelectedId(val._id);
+                            setShowPopup(true);
+                          }}
+                        >
+                          <FaTrashAlt />
+                        </button>
+                      </div>
+                    )}
                   </div>
 
                   <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 truncate capitalize">

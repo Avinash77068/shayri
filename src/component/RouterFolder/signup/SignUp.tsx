@@ -1,4 +1,4 @@
-// src/components/SignUp/SignUp.tsx
+
 import { useState } from "react";
 import { SignUpFormData, SignUpErrors } from "../../../@typeScript/SignUp";
 import api from "../../../utils/api";
@@ -43,7 +43,7 @@ export default function SignUp() {
     if (!validate()) return;
     dispatch(setLoader(true));
     api.post("/user", formData).then(() => {
-      navigate("/alluser");
+      navigate("/login");
       dispatch(setIsOpenDropDown(false));
       dispatch(setLoader(false));
     });

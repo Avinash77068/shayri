@@ -4,6 +4,7 @@ import { setIsOpenDropDown } from "../../store/slice/slice"
 import Popup from "../Global/Popup"
 import { useState } from "react"
 import { Toaster } from "../Global/Toaster"
+import { clearLoginUser } from "../../store/slice/Login"
 
 const menuItems = [
   {
@@ -69,14 +70,15 @@ export default function Sidebar() {
   const isOpened = useSelector((state: any) => state.states.isOpenDropDown)
   const dispatch = useDispatch()
   const [showPopup, setShowPopup] = useState(false)
-
+const loginUser=useSelector((state:any)=>state.loginUser.loginUser)
   return (
     <>
       {/* Blur overlay for mobile when sidebar is open */}
       {!isOpened && (
         <div onClick={()=>dispatch(setIsOpenDropDown(true))} className="fixed inset-0 z-10 bg-black/20 backdrop-blur-sm transition-all duration-500 sm:hidden"></div>
       )}
-      <div
+    {
+      loginUser &&   <div
         className={`z-10 transition-transform duration-800 mt-[3.5rem] sm:mt-[4rem] p-2 bg-blue-400 text-white h-full flex-col gap-5 inline-flex border-r fixed w-[16rem] ${isOpened ? "translate-x-0" : "translate-x"
           }`}
       >
@@ -190,6 +192,7 @@ export default function Sidebar() {
             message="Are you sure you want to logout?"
             onClose={() => setShowPopup(false)}
             onConfirm={() => {
+              dispatch(clearLoginUser())
               setShowPopup(false)
               Toaster({ message: "Logout successful.", type: "success" });
             }}
@@ -203,6 +206,7 @@ export default function Sidebar() {
 
         )}
       </div>
+    }
     </>
   );
 }

@@ -1,10 +1,11 @@
-import {  useState } from "react";
+import { useState } from "react";
 import InputLabel from "./InputLabel";
 import api from "../../../utils/api";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoader } from "../../../store/slice/Loader";
-import { toast } from "react-toastify";
+import { Toaster } from "../../Global/Toaster";
+import { setLoginUser } from "../../../store/slice/Login";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -17,20 +18,17 @@ export default function Login() {
   });
 
   const HandleSubmit = async () => {
-    // 1. Validate empty fields
     if (!AllData.email || !AllData.password) {
-      toast.error("Email and Password should not be empty");
+      Toaster({ message: "Email and Password should not be empty", type: "error" });
       return;
     }
 
-    // 2. Validate email format
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(AllData.email)) {
-      toast.error("Please enter a valid email");
+      Toaster({ message: "Please enter a valid email", type: "error" });
       return;
     }
 
-    // 3. Call API
     try {
       dispatch(setLoader(true));
       const result = await api.post("/login", {
@@ -40,17 +38,20 @@ export default function Login() {
 
       console.log("API result:", result);
 
-      if (result.data?.success) {
-        toast.success("Login successful!");
-        console.log("Navigating...");
+      if (result.data) {
+        console.log(result.data)
+        dispatch(setLoginUser(result?.data));
+        Toaster({ message: "Login successfully", type: "success" });
         navigate("/");
-        dispatch(setLoader(false));
       } else {
-        toast.error(result.data?.message || "Incorrect Email or Password");
-        dispatch(setLoader(false));
+        Toaster({ message: result.data?.message || "Incorrect Email or Password", type: "error" });
       }
     } catch (err: any) {
-      toast.error(err.response?.data?.message || "Incorrect Email or Password");
+      Toaster({
+        message: err.response?.data?.message || "Incorrect Email or Password",
+        type: "error",
+      });
+    } finally {
       dispatch(setLoader(false));
     }
   };
