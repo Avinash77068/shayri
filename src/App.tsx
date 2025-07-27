@@ -1,4 +1,3 @@
-
 import { useSelector } from 'react-redux'
 import Footer from './component/common/Footer'
 import NavBar from './component/common/NavBar'

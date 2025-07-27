@@ -14,14 +14,13 @@ export default function Cards() {
   const isOpened = useSelector((state: any) => state.states.isOpenDropDown);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-
   const [showPopup, setShowPopup] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const getAllData = async () => {
     setLoading(true);
     try {
-      const res = await api.get("/employee/");
+      const res = await api.get("/employee");
       dispatch(setAllData(res.data));
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -69,10 +68,10 @@ export default function Cards() {
           </div>
         ) : (
           <div
-            className={`grid gap-3 sm:gap-4 md:gap-6 ${
+            className={`grid gap-2 px-4 sm:px-1 sm:gap-4 md:gap-6 ${
               isOpened
-                ? "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
-                : "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
+                ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
+                : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
             }`}
           >
             {Alldata?.data?.map((val: val) => {
@@ -88,7 +87,9 @@ export default function Cards() {
                       alt="profile"
                       className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-green-500"
                     />
-                    <div className="flex gap-3">
+                   {
+                    Alldata?.status &&
+                     <div className="flex gap-3">
                       <Link
                         to={`/create/${val._id}`}
                         title="Edit"
@@ -107,6 +108,7 @@ export default function Cards() {
                         <FaTrashAlt />
                       </button>
                     </div>
+                   }
                   </div>
 
                   <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 truncate capitalize">

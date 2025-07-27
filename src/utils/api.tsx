@@ -1,6 +1,6 @@
 import axios from "axios";
-
-const FAKE_STORE = import.meta.env.VITE_FAKE_STORE || "https://mongo-nnwt.onrender.com/api/v1/";
+const Localhost = "http://127.0.0.1:5000/api/v1/"
+const FAKE_STORE =Localhost || import.meta.env.PRODUCT_API_URL||"https://mongo-nnwt.onrender.com/api/v1/";
 
 const api = axios.create({
   baseURL: FAKE_STORE,

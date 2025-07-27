@@ -42,7 +42,7 @@ export default function SignUp() {
     e.preventDefault();
     if (!validate()) return;
     dispatch(setLoader(true));
-    api.post("/user/", formData).then(() => {
+    api.post("/user", formData).then(() => {
       navigate("/alluser");
       dispatch(setIsOpenDropDown(false));
       dispatch(setLoader(false));
