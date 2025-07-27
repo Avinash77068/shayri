@@ -13,7 +13,7 @@ export default function NavBar() {
   const hideHome = location.pathname === "/";
 
   return (
-    <nav className="fixed w-full z-50 bg-blue-400 border-b border-prime-gray-200 p-2 lg:py-3">
+    <nav className="fixed w-full z-50 bg-blue-400 border-prime-gray-200 p-2 lg:py-3">
       <div className="px-5 flex flex-col lg:flex-row justify-between items-center">
         <div className="flex justify-between items-center w-full lg:w-auto">
           <span
