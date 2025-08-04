@@ -1,14 +1,14 @@
-import { useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../utils/api";
 import { Alluser } from "../../@typeScript/AllUser";
 import { setAllUser } from "../../store/AllUser/AllUser";
-
+import { useNavigate } from "react-router-dom";
 export default function AllUser() {
   const allUsers = useSelector((state: any) => state.allUser.AllUser);
   const isOpened = useSelector((state: any) => state.states.isOpenDropDown);
   const dispatch = useDispatch();
-
+const navigate=useNavigate();
   const getAllUSerData = async () => {
     try {
       const res = await api.get("/user/");
@@ -31,9 +31,17 @@ export default function AllUser() {
     }
   };
 
-  useEffect(() => {
-    getAllUSerData();
-  }, []);
+  const handleEdit = async (id: string) => {
+    try {
+      const res = await api.get(`/user/${id}`);
+      if (res.status === 200) {
+       navigate(`/edit/${id}`);
+      }
+    } catch (err) {
+      console.error("Error editing data:", err);
+    }
+  };
+
 
   return (
     <div className={`pt-[65px] px-4 absolute w-full ${!isOpened ? "left-[16rem]" : "left-[.2rem]"}`}>
@@ -74,7 +82,7 @@ export default function AllUser() {
                 <td className="p-3">
                   <button
                     // Replace below with edit logic
-                    onClick={() => alert("Edit logic here")}
+                    onClick={() => handleEdit(person._id)}
                     className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
                   >
                     Edit

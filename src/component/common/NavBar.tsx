@@ -12,7 +12,8 @@ export default function NavBar() {
   const location = useLocation();
   const hideHome = location.pathname === "/";
 
-  const loginUser = useSelector((state: any) => state.loginUser.loginUser); // 👈 Get user
+  const loginUser = useSelector((state: any) => state.loginUser.loginUser);
+  console.log(loginUser,"loginUser") // 👈 Get user
   const isLoggedIn = !!loginUser; // true if user exists
 
   return (
@@ -23,9 +24,9 @@ export default function NavBar() {
             onClick={() => dispatch(setIsOpenDropDown(!isOpened))}
             className="flex items-center cursor-pointer"
           >
-            <img src={logo} className="w-10 h-10 rounded-full" />
-            <p className="italic font-semibold pl-4">
-              {isLoggedIn ? loginUser.name : "Avinash"}
+            <img src={logo} className="w-12 sm:w-12 md:w-16 h-12 sm:h-12 md:h-16  rounded-full" />
+            <p className="italic text-lg sm:text-xl md:text-2xl text-ellipsis -tracking-wider font-semibold pl-4">
+              {isLoggedIn ? loginUser?.auth?.username : "Avinash"}
             </p>
           </span>
           <button
