@@ -6,6 +6,10 @@ import { useState } from "react"
 import { Toaster } from "../Global/Toaster"
 import { clearLoginUser } from "../../store/slice/Login"
 
+
+
+
+
 const menuItems = [
   {
     to: "/create", label: "Upload", icon: (
@@ -71,6 +75,7 @@ export default function Sidebar() {
   const dispatch = useDispatch()
   const [showPopup, setShowPopup] = useState(false)
 const loginUser=useSelector((state:any)=>state.loginUser.loginUser)
+console.log(loginUser,"loginUser")
   return (
     <>
       {/* Blur overlay for mobile when sidebar is open */}
@@ -78,12 +83,13 @@ const loginUser=useSelector((state:any)=>state.loginUser.loginUser)
         <div onClick={()=>dispatch(setIsOpenDropDown(true))} className="fixed inset-0 z-10 bg-black/20 backdrop-blur-sm transition-all duration-500 sm:hidden"></div>
       )}
     {
-      loginUser &&   <div
-        className={`z-10 transition-transform duration-800 mt-[3.5rem] sm:mt-[4rem] p-2 bg-blue-400 text-white h-full flex-col gap-5 inline-flex border-r fixed w-[16rem] ${isOpened ? "translate-x-0" : "translate-x"
+      <div
+        className={`z-10 transition-transform duration-800 mt-[3.5rem] sm:mt-[4rem] p-2 bg-blue-400 text-white h-full flex-col gap-5 inline-flex border-r fixed ${isOpened ? "w-[16rem]" : "w-[16rem]"} ${isOpened ? "translate-x-0" : "translate-x"
           }`}
       >
         {/* User Info */}
-        <div className="w-full p-3 rounded-lg border border-gray-300 flex items-center justify-between">
+        {
+        loginUser  && <div className="w-full p-3 rounded-lg border border-gray-300 flex items-center justify-between">
           <div className="flex items-center">
             <img
               className="rounded-full w-8 h-8 border-fuchsia-500 border-2"
@@ -92,10 +98,10 @@ const loginUser=useSelector((state:any)=>state.loginUser.loginUser)
             />
             <div className="flex-col inline-flex ml-2.5">
               <h2 className="text-gray-700 text-sm font-semibold leading-snug">
-                Avinash
+              {loginUser?.auth?.username}
               </h2>
               <h6 className="text-black/20 text-xs font-normal leading-4">
-                avinash@gmaill.com
+                {loginUser?.auth?.email}
               </h6>
             </div>
           </div>
@@ -116,6 +122,7 @@ const loginUser=useSelector((state:any)=>state.loginUser.loginUser)
             </svg>
           </button>
         </div>
+        }
         {/* Menu */}
         <div className="w-full">
           <div className="w-full h-8 px-3 flex items-center">
@@ -141,10 +148,10 @@ const loginUser=useSelector((state:any)=>state.loginUser.loginUser)
         {/* Settings */}
         <div className="w-full flex-col flex">
           <div className="h-8 px-3 items-center inline-flex">
-            <h6 className="text-black text-xs font-bold leading-4">SETTINGS</h6>
+            <h6 className="text-black text-xs font-bold leading-4" style={{display: loginUser ? "block" : "none"}}>{loginUser ? "Settings" : ""}</h6>
           </div>
           <ul className="flex-col gap-1 flex">
-            {settingsItems.map((item) => (
+            {   loginUser ?  settingsItems.map((item) => (
               <li
                 key={item.label}
                
@@ -162,7 +169,7 @@ const loginUser=useSelector((state:any)=>state.loginUser.loginUser)
                       {item.label}
                     </span>
                   </button>
-                ) : item.to ? (
+                ) : item.to  ? (
                   <Link
                     to={item.to}
                     onClick={
@@ -184,7 +191,10 @@ const loginUser=useSelector((state:any)=>state.loginUser.loginUser)
                   </div>
                 )}
               </li>
-            ))}
+            )): <li className="justify-end flex flex-col gap-4 text-center items-center rounded-lg w-full">
+            <Link to="/login" onClick={() => dispatch(setIsOpenDropDown(true))} className="px-6 py-2 text-white font-bold w-full bg-blue-500 rounded-lg">Login</Link>
+            <Link to="/signup" onClick={() => dispatch(setIsOpenDropDown(true))} className="px-6 py-2 text-white font-bold w-full bg-blue-500 rounded-lg">Sign Up</Link>
+          </li>}
           </ul>
         </div>
         {showPopup && (

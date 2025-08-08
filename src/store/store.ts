@@ -22,7 +22,7 @@ import {
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['loginUser', 'alldata'], //  only these will be persisted
+  whitelist: ['loginUser', 'alldata','allUser'], //  only these will be persisted
 };
 
 const rootReducer = combineReducers({

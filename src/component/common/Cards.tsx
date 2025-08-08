@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { val } from "../../@typeScript/TypeScriptCollection";
 import Popup from "../Global/Popup";
+import { setAllUser } from "../../store/AllUser/AllUser";
+
 
 export default function Cards() {
   const Alldata = useSelector((state: any) => state.alldata.AllData);
@@ -33,8 +35,19 @@ export default function Cards() {
     }
   };
 
+  const getAlluser=async()=>{
+    try {
+      const res=await api.get("/user/")
+      console.log(res?.data)
+      dispatch(setAllUser(res?.data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     getAllData();
+    getAlluser();
   }, []);
 
   const handleDelete = async (id: string) => {
